@@ -12,6 +12,7 @@ import MediaPlayer
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var toolbar: UIToolbar!
    
     @IBOutlet weak var webView: UIWebView!
     
@@ -70,12 +71,13 @@ class ViewController: UIViewController {
         var myStream = RustleStream()
         myStream.platform = 1
         
-        var videoStreamURL : NSURL = NSURL( string: "http://iphone-streaming.ustream.tv/ustreamVideo/20654296/streams/live/iphone/playlist.m3u8" )!
+        var videoStreamURL : NSURL = NSURL( string: "http://iphone-streaming.ustream.tv/ustreamVideo/20877252/streams/live/iphone/playlist.m3u8" )!
         
         player = MPMoviePlayerController(contentURL: videoStreamURL)
         
-        player.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 300)
-        
+        //The player takes up 55% of the screen
+        //(this can (and probably should be) changed later
+        player.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height * 0.55)
         self.view.addSubview(player.view)
         
         player.play()
@@ -88,7 +90,11 @@ class ViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        webView.frame = CGRectMake(0, 300, self.view.frame.size.width, self.view.frame.size.height - 345);
+        webView.frame.size.width = self.view.frame.size.width
+        webView.frame.origin.x = 0
+        webView.frame.origin.y = self.view.frame.size.height * 0.55
+        //The webview frame is the other 45% of the screen, minus the space that the toolbar takes up
+        webView.frame.size.height = self.view.frame.size.height * 0.45 - toolbar.frame.size.height
     }
     
     

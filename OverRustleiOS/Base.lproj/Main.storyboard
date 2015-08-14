@@ -16,10 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lVs-YW-Gu9">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="693"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </webView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sgz-Bm-VCP">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
@@ -30,9 +26,17 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lVs-YW-Gu9">
+                                <rect key="frame" x="0.0" y="-137" width="600" height="693"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="693" id="8AP-jW-VbJ"/>
+                                </constraints>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="lVs-YW-Gu9" firstAttribute="bottom" secondItem="sgz-Bm-VCP" secondAttribute="top" id="ISr-73-8gq"/>
                             <constraint firstItem="sgz-Bm-VCP" firstAttribute="trailing" secondItem="lVs-YW-Gu9" secondAttribute="trailing" id="Mt8-or-uD3"/>
                             <constraint firstItem="sgz-Bm-VCP" firstAttribute="leading" secondItem="lVs-YW-Gu9" secondAttribute="leading" id="hPt-lP-Wxx"/>
                             <constraint firstAttribute="trailing" secondItem="sgz-Bm-VCP" secondAttribute="trailing" id="jRK-ZP-Ozh"/>
@@ -41,6 +45,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="toolbar" destination="sgz-Bm-VCP" id="q6Q-iy-NiZ"/>
                         <outlet property="webView" destination="lVs-YW-Gu9" id="sN4-HQ-oRC"/>
                     </connections>
                 </viewController>
