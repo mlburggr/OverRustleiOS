@@ -41,20 +41,7 @@ class ViewController: UIViewController {
         }
         
         
-//        var toolbarFrame = CGRectMake(0, 0, rustleActionSheet.bounds.size.width, 44)
-//        var controlToolbar = UIToolbar(frame: toolbarFrame)
-//        
-//        controlToolbar.barStyle = UIBarStyle.Black
-//        controlToolbar.sizeToFit()
-//        
-//        var spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-//        var setButton = UIBarButtonItem(title: "Set", style: UIBarButtonItemStyle.Done, target: self, action: "dismissActivityActionSheet:")
-//        var cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelActivityActionSheet:")
-//        
-//        
-//        controlToolbar.setItems(NSArray(array: [spacer, cancelButton, setButton]) as [AnyObject], animated: false)
-//        
-//        rustleActionSheet.addSubview(controlToolbar)
+
         rustleActionSheet.bounds = CGRectMake(0, 0, 320, 485)
         rustleActionSheet.showInView(self.view)
         
@@ -71,13 +58,13 @@ class ViewController: UIViewController {
         var myStream = RustleStream()
         myStream.platform = 1
         
-        var videoStreamURL : NSURL = NSURL( string: "http://iphone-streaming.ustream.tv/ustreamVideo/20877252/streams/live/iphone/playlist.m3u8" )!
+        var videoStreamURL : NSURL = NSURL( string: "http://iphone-streaming.ustream.tv/ustreamVideo/6540154/streams/live/iphone/playlist.m3u8" )!
         
         player = MPMoviePlayerController(contentURL: videoStreamURL)
         
-        //The player takes up 55% of the screen
+        //The player takes up 40% of the screen
         //(this can (and probably should be) changed later
-        player.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height * 0.55)
+        player.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height * 0.40)
         self.view.addSubview(player.view)
         
         player.play()
@@ -92,9 +79,9 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         webView.frame.size.width = self.view.frame.size.width
         webView.frame.origin.x = 0
-        webView.frame.origin.y = self.view.frame.size.height * 0.55
-        //The webview frame is the other 45% of the screen, minus the space that the toolbar takes up
-        webView.frame.size.height = self.view.frame.size.height * 0.45 - toolbar.frame.size.height
+        webView.frame.origin.y = self.view.frame.size.height * 0.40
+        //The webview frame is the other 60% of the screen, minus the space that the toolbar takes up
+        webView.frame.size.height = self.view.frame.size.height * 0.60 - toolbar.frame.size.height
     }
     
     
