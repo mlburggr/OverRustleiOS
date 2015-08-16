@@ -56,9 +56,12 @@ class ViewController: UIViewController {
         webView.loadRequest(chatURLRequestObj)
         
         var myStream = RustleStream()
-        myStream.platform = 1
-        
-        var videoStreamURL : NSURL = NSURL( string: "http://iphone-streaming.ustream.tv/ustreamVideo/6540154/streams/live/iphone/playlist.m3u8" )!
+        myStream.platform = 2
+        myStream.getPlatform()
+        myStream.channel = "destiny"
+        var videoStreamURL = myStream.getStreamURL()
+
+   //    var videoStreamURL : NSURL = NSURL( string: "http://iphone-streaming.ustream.tv/ustreamVideo/6540154/streams/live/iphone/playlist.m3u8" )!
         
         player = MPMoviePlayerController(contentURL: videoStreamURL)
         
@@ -90,11 +93,5 @@ class ViewController: UIViewController {
 }
 
 
-class RustleStream {
-    //0: platform unset
-    //1: ustream
-    //2: twitch
-    var platform : Int = 0
-    var streamURL : NSURL = NSURL( string: "" )!
-}
+
 
