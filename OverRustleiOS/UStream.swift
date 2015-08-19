@@ -8,11 +8,10 @@
 
 import Foundation
 
-public class UStream {
+public class UStream: RustleStream {
     
-    var channel : String = ""
     
-    func getUStreamURL() -> NSURL {
+    override func getStreamURL() -> NSURL {
         var url = NSURL(string:"http://iphone-streaming.ustream.tv/ustreamVideo/\(channel)/streams/live/iphone/playlist.m3u8")
         return url!
     }

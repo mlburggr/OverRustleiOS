@@ -55,10 +55,8 @@ class ViewController: UIViewController {
         let chatURLRequestObj = NSURLRequest(URL: chatURL!)
         webView.loadRequest(chatURLRequestObj)
         
-        var myStream = RustleStream()
-        myStream.platform = 2
-        myStream.getPlatform()
-        myStream.channel = "destiny"
+        var myStream = UStream()
+        myStream.channel = "20654296"
         var videoStreamURL = myStream.getStreamURL()
 
    //    var videoStreamURL : NSURL = NSURL( string: "http://iphone-streaming.ustream.tv/ustreamVideo/6540154/streams/live/iphone/playlist.m3u8" )!
