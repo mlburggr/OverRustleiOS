@@ -12,14 +12,14 @@ public class Twitch: RustleStream {
     
     
         override func getStreamURL() -> NSURL {
-        var jsonData : NSData = NSData(contentsOfURL: NSURL(string:"https://api.twitch.tv/kraken/streams/destiny")!)!
+        var jsonData : NSData = NSData(contentsOfURL: NSURL(string:"https://api.twitch.tv/kraken/streams/\(channel)")!)!
         var json = JSON(data:jsonData)
         var streamID = json["stream"]["viewers"].stringValue
         println("\(streamID)")
         
         
         //step 1: get token & sig for channel
-        var authJsonData = NSData(contentsOfURL: NSURL(string:"https://api.twitch.tv/api/channels/destiny/access_token")!)!
+        var authJsonData = NSData(contentsOfURL: NSURL(string:"https://api.twitch.tv/api/channels/\(channel)/access_token")!)!
         var auth = JSON(data:authJsonData)
         var token = auth["token"].stringValue
         var sig = auth["sig"].stringValue
