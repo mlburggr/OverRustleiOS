@@ -40,8 +40,7 @@ class ViewController: UIViewController {
         }
         
         
-        let rustleActionSheet = UIActionSheet(title: title, delegate: nil, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil)
-        rustleActionSheet.actionSheetStyle = UIActionSheetStyle.BlackTranslucent
+        let rustleActionSheet = UIAlertController(title: title, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
         
         var i : Int
         
@@ -53,21 +52,31 @@ class ViewController: UIViewController {
                     button_title = "\(name) via \(button_title)"
                 }
                 
-                var button = UIButton()
-                button.addTarget(self, action: "selected:", forControlEvents: UIControlEvents.TouchDown)
-                var frame = CGRectMake(0, CGFloat(i*40 + 10), 160, 40)
-                button.frame = frame
-                button.tag = i
-                button.setTitle("Button \(i)", forState: UIControlState.Normal)
-                println("Making button \(i)")
-                rustleActionSheet.addButtonWithTitle(button_title)
-                rustleActionSheet.addSubview(button)
+                rustleActionSheet.addAction(UIAlertAction(title:button_title, style:UIAlertActionStyle.Default, handler:{ action in
+                    println("loading", channel, "from", platform)
+                    self.openStream(platform, channel: channel)
+                }))
             }
         }
-
-        rustleActionSheet.bounds = CGRectMake(0, 0, 320, 485)
-        rustleActionSheet.showInView(self.view)
         
+        rustleActionSheet.addAction(UIAlertAction(title:"Cancel", style:UIAlertActionStyle.Cancel, handler:nil))
+        presentViewController(rustleActionSheet, animated:true, completion:nil)
+    }
+    
+    func openStream(platform:String, channel:String) {
+        var s = RustleStream()
+        switch platform {
+            case "ustream":
+                s = UStream()
+            case "twitch":
+                s = Twitch()
+            default:
+                println(platform, "is not supported right now")
+        }
+        s.channel = channel
+        player.contentURL = s.getStreamURL()
+        player.play()
+
     }
     
     func addHandlers() {
@@ -86,11 +95,9 @@ class ViewController: UIViewController {
                     println("Rustlers:", viewers)
                 }
                 if let stream_list = self.api_data["stream_list"] as? NSArray {
-                    println("Stream List", stream_list)
+                    println("Good Stream List")
                 }
             }
-//                // println("Got data: \(data), with ack: \(ack)")
-//            }
         }
     }
     
@@ -121,8 +128,6 @@ class ViewController: UIViewController {
         
         player.play()
         
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -137,11 +142,8 @@ class ViewController: UIViewController {
         //The webview frame is the other 60% of the screen, minus the space that the toolbar takes up
         webView.frame.size.height = self.view.frame.size.height * 0.60 - toolbar.frame.size.height
     }
-    
-    
-
-
 }
+
 
 
 
