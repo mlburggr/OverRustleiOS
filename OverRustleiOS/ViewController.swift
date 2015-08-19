@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 import MediaPlayer
-
+import SocketIO
 class ViewController: UIViewController {
     
     @IBOutlet weak var toolbar: UIToolbar!
@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     
     var player = MPMoviePlayerController()
     
+    let socket = SocketIOClient(socketURL: "http://api.overrustle.com", options: ["nsp": "/streams"])
     
     
     @IBAction func strimsPressed(sender: AnyObject) {
@@ -46,9 +47,28 @@ class ViewController: UIViewController {
         rustleActionSheet.showInView(self.view)
         
     }
+    
+    func addHandlers() {
+        // Our socket handlers go here
+        
+        self.socket.onAny {println("Got event: \($0.event), with items: \($0.items)")}
+        self.socket.on("strims") {[weak self] data, ack in
+            println("Got data: \(data), with ack: \(ack)")
+            return
+        }
+        
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        
+        self.addHandlers()
+        self.socket.connect()
+        
+
         
         
         let chatURL = NSURL(string: "http://www.destiny.gg/embed/chat")
@@ -58,9 +78,6 @@ class ViewController: UIViewController {
         var myStream = UStream()
         myStream.channel = "20654296"
         var videoStreamURL = myStream.getStreamURL()
-
-   //    var videoStreamURL : NSURL = NSURL( string: "http://iphone-streaming.ustream.tv/ustreamVideo/6540154/streams/live/iphone/playlist.m3u8" )!
-        
         player = MPMoviePlayerController(contentURL: videoStreamURL)
         
         //The player takes up 40% of the screen
@@ -69,6 +86,8 @@ class ViewController: UIViewController {
         self.view.addSubview(player.view)
         
         player.play()
+        
+        
         
     }
 
