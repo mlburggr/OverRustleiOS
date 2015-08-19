@@ -13,8 +13,8 @@
 		CF019BCC1B75C9AD00180B14 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF019BCB1B75C9AD00180B14 /* Images.xcassets */; };
 		CF019BCF1B75C9AD00180B14 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF019BCD1B75C9AD00180B14 /* LaunchScreen.xib */; };
 		CF019BDB1B75C9AD00180B14 /* OverRustleiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF019BDA1B75C9AD00180B14 /* OverRustleiOSTests.swift */; };
-		CF099CAC1B84691A00139369 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF099CA51B84691200139369 /* SocketIO.framework */; };
-		CF099CAD1B84692300139369 /* SocketIO.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CF099CA51B84691200139369 /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CF8D75951B853C7900559CBE /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF8D758E1B853C7100559CBE /* SocketIO.framework */; };
+		CF8D75961B853C7F00559CBE /* SocketIO.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CF8D758E1B853C7100559CBE /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CFBFF2981B803C1000A72627 /* RustleStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBFF2971B803C1000A72627 /* RustleStream.swift */; };
 		CFBFF29B1B803D3300A72627 /* UStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBFF29A1B803D3300A72627 /* UStream.swift */; };
 		CFBFF29D1B803D3C00A72627 /* Twitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBFF29C1B803D3C00A72627 /* Twitch.swift */; };
@@ -29,30 +29,30 @@
 			remoteGlobalIDString = CF019BBE1B75C9AD00180B14;
 			remoteInfo = OverRustleiOS;
 		};
-		CF099CA41B84691200139369 /* PBXContainerItemProxy */ = {
+		CF8D758D1B853C7100559CBE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CF099C9D1B84691200139369 /* Socket.IO-Client-Swift.xcodeproj */;
+			containerPortal = CF8D75861B853C7100559CBE /* Socket.IO-Client-Swift.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 572EF2191B51F16C00EEBB58;
 			remoteInfo = "SocketIO-iOS";
 		};
-		CF099CA61B84691200139369 /* PBXContainerItemProxy */ = {
+		CF8D758F1B853C7100559CBE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CF099C9D1B84691200139369 /* Socket.IO-Client-Swift.xcodeproj */;
+			containerPortal = CF8D75861B853C7100559CBE /* Socket.IO-Client-Swift.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 572EF2241B51F16C00EEBB58;
 			remoteInfo = "SocketIO-iOSTests";
 		};
-		CF099CA81B84691200139369 /* PBXContainerItemProxy */ = {
+		CF8D75911B853C7100559CBE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CF099C9D1B84691200139369 /* Socket.IO-Client-Swift.xcodeproj */;
+			containerPortal = CF8D75861B853C7100559CBE /* Socket.IO-Client-Swift.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 572EF2381B51F18A00EEBB58;
 			remoteInfo = "SocketIO-Mac";
 		};
-		CF099CAA1B84691200139369 /* PBXContainerItemProxy */ = {
+		CF8D75931B853C7100559CBE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = CF099C9D1B84691200139369 /* Socket.IO-Client-Swift.xcodeproj */;
+			containerPortal = CF8D75861B853C7100559CBE /* Socket.IO-Client-Swift.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 572EF2421B51F18A00EEBB58;
 			remoteInfo = "SocketIO-MacTests";
@@ -66,7 +66,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CF099CAD1B84692300139369 /* SocketIO.framework in CopyFiles */,
+				CF8D75961B853C7F00559CBE /* SocketIO.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 		CF019BD41B75C9AD00180B14 /* OverRustleiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OverRustleiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF019BD91B75C9AD00180B14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF019BDA1B75C9AD00180B14 /* OverRustleiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverRustleiOSTests.swift; sourceTree = "<group>"; };
-		CF099C9D1B84691200139369 /* Socket.IO-Client-Swift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Socket.IO-Client-Swift.xcodeproj"; path = "../socket.io-client-swift/Socket.IO-Client-Swift.xcodeproj"; sourceTree = "<group>"; };
+		CF8D75861B853C7100559CBE /* Socket.IO-Client-Swift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Socket.IO-Client-Swift.xcodeproj"; path = "../../socket.io-client-swift/Socket.IO-Client-Swift.xcodeproj"; sourceTree = "<group>"; };
 		CFBFF2971B803C1000A72627 /* RustleStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RustleStream.swift; sourceTree = "<group>"; };
 		CFBFF29A1B803D3300A72627 /* UStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UStream.swift; sourceTree = "<group>"; };
 		CFBFF29C1B803D3C00A72627 /* Twitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Twitch.swift; sourceTree = "<group>"; };
@@ -95,7 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF099CAC1B84691A00139369 /* SocketIO.framework in Frameworks */,
+				CF8D75951B853C7900559CBE /* SocketIO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +115,7 @@
 				CF019BC11B75C9AD00180B14 /* OverRustleiOS */,
 				CF019BD71B75C9AD00180B14 /* OverRustleiOSTests */,
 				CF019BC01B75C9AD00180B14 /* Products */,
-				CF099C9D1B84691200139369 /* Socket.IO-Client-Swift.xcodeproj */,
+				CF8D75861B853C7100559CBE /* Socket.IO-Client-Swift.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -170,13 +170,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		CF099C9E1B84691200139369 /* Products */ = {
+		CF8D75871B853C7100559CBE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CF099CA51B84691200139369 /* SocketIO.framework */,
-				CF099CA71B84691200139369 /* SocketIO-iOSTests.xctest */,
-				CF099CA91B84691200139369 /* SocketIO.framework */,
-				CF099CAB1B84691200139369 /* SocketIO-MacTests.xctest */,
+				CF8D758E1B853C7100559CBE /* SocketIO.framework */,
+				CF8D75901B853C7100559CBE /* SocketIO-iOSTests.xctest */,
+				CF8D75921B853C7100559CBE /* SocketIO.framework */,
+				CF8D75941B853C7100559CBE /* SocketIO-MacTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,8 +251,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = CF099C9E1B84691200139369 /* Products */;
-					ProjectRef = CF099C9D1B84691200139369 /* Socket.IO-Client-Swift.xcodeproj */;
+					ProductGroup = CF8D75871B853C7100559CBE /* Products */;
+					ProjectRef = CF8D75861B853C7100559CBE /* Socket.IO-Client-Swift.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -264,32 +264,32 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		CF099CA51B84691200139369 /* SocketIO.framework */ = {
+		CF8D758E1B853C7100559CBE /* SocketIO.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = SocketIO.framework;
-			remoteRef = CF099CA41B84691200139369 /* PBXContainerItemProxy */;
+			remoteRef = CF8D758D1B853C7100559CBE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CF099CA71B84691200139369 /* SocketIO-iOSTests.xctest */ = {
+		CF8D75901B853C7100559CBE /* SocketIO-iOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "SocketIO-iOSTests.xctest";
-			remoteRef = CF099CA61B84691200139369 /* PBXContainerItemProxy */;
+			remoteRef = CF8D758F1B853C7100559CBE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CF099CA91B84691200139369 /* SocketIO.framework */ = {
+		CF8D75921B853C7100559CBE /* SocketIO.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = SocketIO.framework;
-			remoteRef = CF099CA81B84691200139369 /* PBXContainerItemProxy */;
+			remoteRef = CF8D75911B853C7100559CBE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CF099CAB1B84691200139369 /* SocketIO-MacTests.xctest */ = {
+		CF8D75941B853C7100559CBE /* SocketIO-MacTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "SocketIO-MacTests.xctest";
-			remoteRef = CF099CAA1B84691200139369 /* PBXContainerItemProxy */;
+			remoteRef = CF8D75931B853C7100559CBE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

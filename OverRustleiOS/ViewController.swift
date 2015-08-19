@@ -79,6 +79,13 @@ class ViewController: UIViewController {
 
     }
     
+    func closeSocket() {
+        self.socket.disconnect(fast: false)
+    }
+    func openSocket() {
+        self.socket.connect()
+    }
+    
     func addHandlers() {
         // Our socket handlers go here
         
@@ -100,6 +107,7 @@ class ViewController: UIViewController {
             }
         }
     }
+    
     
     
     override func viewDidLoad() {
