@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 import SocketIO
+
 class ViewController: UIViewController {
     
     @IBOutlet weak var toolbar: UIToolbar!
@@ -20,28 +21,49 @@ class ViewController: UIViewController {
     
     let socket = SocketIOClient(socketURL: "http://api.overrustle.com", options: ["nsp": "/streams"])
     
+    var api_data:NSDictionary = NSDictionary();
     
     @IBAction func strimsPressed(sender: AnyObject) {
         
+        var title = "Select Strim"
         
-        let rustleActionSheet = UIActionSheet(title: "Select Strim", delegate: nil, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil)
-        rustleActionSheet.actionSheetStyle = UIActionSheetStyle.BlackTranslucent
+        if let viewers = api_data["viewercount"] as? Int {
+            println("Rustlers:", viewers)
+            title = "\(viewers) Rustlers Watching"
+        }
         
-        var i : Int
-        for i = 0; i<7; i++ {
-            var button = UIButton()
-            button.addTarget(self, action: "selected:", forControlEvents: UIControlEvents.TouchDown)
-            var frame = CGRectMake(0, CGFloat(i*40 + 10), 160, 40)
-            button.frame = frame
-            button.tag = i
-            button.setTitle("Button \(i)", forState: UIControlState.Normal)
-            println("Making button \(i)")
-            rustleActionSheet.addButtonWithTitle("two")
-            
-            rustleActionSheet.addSubview(button)
+        var list = NSArray()
+        
+        if let stream_list = api_data["stream_list"] as? NSArray {
+            list = stream_list
+            println("Stream List", stream_list)
         }
         
         
+        let rustleActionSheet = UIActionSheet(title: title, delegate: nil, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil)
+        rustleActionSheet.actionSheetStyle = UIActionSheetStyle.BlackTranslucent
+        
+        var i : Int
+        
+        for i = 0; i<list.count; i++ {
+            let stream = list[i] as! NSDictionary
+            if let channel = stream["channel"] as? String, let platform = stream["platform"] as? String {
+                var button_title = "\(channel) on \(platform)"
+                if let name = stream["name"] as? String {
+                    button_title = "\(name) via \(button_title)"
+                }
+                
+                var button = UIButton()
+                button.addTarget(self, action: "selected:", forControlEvents: UIControlEvents.TouchDown)
+                var frame = CGRectMake(0, CGFloat(i*40 + 10), 160, 40)
+                button.frame = frame
+                button.tag = i
+                button.setTitle("Button \(i)", forState: UIControlState.Normal)
+                println("Making button \(i)")
+                rustleActionSheet.addButtonWithTitle(button_title)
+                rustleActionSheet.addSubview(button)
+            }
+        }
 
         rustleActionSheet.bounds = CGRectMake(0, 0, 320, 485)
         rustleActionSheet.showInView(self.view)
@@ -51,13 +73,25 @@ class ViewController: UIViewController {
     func addHandlers() {
         // Our socket handlers go here
         
-        self.socket.onAny {println("Got event: \($0.event), with items: \($0.items)")}
-        self.socket.on("strims") {[weak self] data, ack in
-            println("Got data: \(data), with ack: \(ack)")
-            return
+        self.socket.onAny {
+            println("Got event: \($0.event)")
+//            println("with items: \($0.items)")
         }
-        
-        
+        self.socket.on("strims") { data, ack in
+            println("in strims")
+            
+            if let new_api_data = data?[0] as? NSDictionary {
+                self.api_data = new_api_data
+                if let viewers = self.api_data["viewercount"] as? Int {
+                    println("Rustlers:", viewers)
+                }
+                if let stream_list = self.api_data["stream_list"] as? NSArray {
+                    println("Stream List", stream_list)
+                }
+            }
+//                // println("Got data: \(data), with ack: \(ack)")
+//            }
+        }
     }
     
     
