@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     var player = MPMoviePlayerController()
     
-    let socket = SocketIOClient(socketURL: "http://api.overrustle.com", options: ["nsp": "/streams"])
+    var socket = SocketIOClient(socketURL: "http://api.overrustle.com", opts: ["nsp": "/streams"])
     
     var api_data:NSDictionary = NSDictionary();
     
