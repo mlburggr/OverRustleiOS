@@ -72,6 +72,8 @@ class ViewController: UIViewController {
                 s = Twitch()
             case "youtube":
                 s = YouTubeLive()
+            case "hitbox":
+                s = Hitbox()
             default:
                 println(platform, "is not supported right now")
         }
