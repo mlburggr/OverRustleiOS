@@ -74,6 +74,8 @@ class ViewController: UIViewController {
                 s = YouTubeLive()
             case "hitbox":
                 s = Hitbox()
+            case "azubu":
+                s = Azubu()
             default:
                 println(platform, "is not supported right now")
         }
