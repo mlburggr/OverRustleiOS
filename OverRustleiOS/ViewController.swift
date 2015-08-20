@@ -42,6 +42,10 @@ class ViewController: UIViewController {
         
         let rustleActionSheet = UIAlertController(title: title, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
         
+        rustleActionSheet.popoverPresentationController?.sourceView = self.view
+        rustleActionSheet.popoverPresentationController?.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
+        
+        
         var i : Int
         
         for i = 0; i<list.count; i++ {
