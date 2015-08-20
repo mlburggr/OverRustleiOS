@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     
     var socket = SocketIOClient(socketURL: "http://api.overrustle.com", opts: ["nsp": "/streams"])
     
-    var api_data:NSDictionary = NSDictionary();
+    var api_data:NSDictionary = NSDictionary()
     
     @IBAction func strimsPressed(sender: AnyObject) {
         
@@ -42,20 +42,35 @@ class ViewController: UIViewController {
         
         let rustleActionSheet = UIAlertController(title: title, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
         
+        rustleActionSheet.popoverPresentationController?.sourceView = self.view
+        rustleActionSheet.popoverPresentationController?.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
+        
+        
         var i : Int
         
         for i = 0; i<list.count; i++ {
             let stream = list[i] as! NSDictionary
-            if let channel = stream["channel"] as? String, let platform = stream["platform"] as? String {
+            if let channel = stream["channel"] as? String, let platform = stream["platform"] as? String, let imageURLString = stream["image_url"] as? String {
                 var button_title = "\(channel) on \(platform)"
                 if let name = stream["name"] as? String {
                     button_title = "\(name) via \(button_title)"
                 }
                 
-                rustleActionSheet.addAction(UIAlertAction(title:button_title, style:UIAlertActionStyle.Default, handler:{ action in
+                let action = UIAlertAction(title:button_title, style:UIAlertActionStyle.Default, handler:{ action in
                     println("loading", channel, "from", platform)
                     self.openStream(platform, channel: channel)
-                }))
+                })
+                if let imageURL = NSURL(string: imageURLString) {
+                    if let imageData = NSData(contentsOfURL: imageURL) {
+                        let image = UIImage(data: imageData, scale: 10)
+                        let originalImage = image?.imageWithRenderingMode(.AlwaysOriginal)
+                        action.setValue(originalImage, forKey: "image")
+                    }
+                
+                }
+                
+              
+                rustleActionSheet.addAction(action)
             }
         }
         
@@ -110,6 +125,7 @@ class ViewController: UIViewController {
                 if let stream_list = self.api_data["stream_list"] as? NSArray {
                     println("Good Stream List")
                 }
+                
             }
         }
     }
