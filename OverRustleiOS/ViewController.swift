@@ -70,6 +70,8 @@ class ViewController: UIViewController {
                 s = UStream()
             case "twitch":
                 s = Twitch()
+            case "youtube":
+                s = YouTubeLive()
             default:
                 println(platform, "is not supported right now")
         }
