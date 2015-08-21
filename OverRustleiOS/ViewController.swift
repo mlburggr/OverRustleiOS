@@ -19,7 +19,7 @@ class ViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var backButton: UIButton!
     var socket = SocketIOClient(socketURL: "http://api.overrustle.com", opts: ["nsp": "/streams"])
     var api_data:NSDictionary = NSDictionary()
-    
+    var isFullWidthPlayer: Bool = true
     
     func webViewDidFinishLoad(webView: UIWebView) {
         if(webView.request?.URL != NSURL(string: "http://www.destiny.gg/embed/chat")){
@@ -158,8 +158,33 @@ class ViewController: UIViewController, UIWebViewDelegate {
         player.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height * 0.40)
         self.view.addSubview(player.view)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "fullscreenButtonClick", name: MPMoviePlayerDidEnterFullscreenNotification, object: nil)
+        
+        self.isFullWidthPlayer = true
+        
+        
         player.play()
         
+    }
+    
+    func fullscreenButtonClick(){
+        println("fullscreen button clicked")
+        if(isFullWidthPlayer){
+        //make the player a mini player
+        self.player.setFullscreen(false, animated: true)
+        self.player.controlStyle = MPMovieControlStyle.Embedded
+        player.view.frame = CGRectMake(self.view.frame.size.width * 0.50, 0, self.view.frame.size.width * 0.50, self.view.frame.size.height * 0.20)
+        isFullWidthPlayer = false
+        
+        
+        } else {
+            //make the mini player a full width player again
+            self.player.setFullscreen(false, animated: true)
+            player.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height * 0.40)
+            self.player.controlStyle = MPMovieControlStyle.Embedded
+            isFullWidthPlayer = true
+        }
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -168,11 +193,28 @@ class ViewController: UIViewController, UIWebViewDelegate {
     }
     
     override func viewDidLayoutSubviews() {
+        var deviceOrientation = UIDevice.currentDevice().orientation
+        if(UIDeviceOrientationIsLandscape(deviceOrientation)){
+            if(isFullWidthPlayer){
+                self.player.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+            } else {
+                self.player.view.frame = CGRectMake( 2 * self.view.frame.size.width / 3, 0, self.view.frame.size.width / 3, self.view.frame.size.width / 3 * 0.5625)
+            }
+        } else {
+        if(isFullWidthPlayer){
+        self.player.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height * 0.40)
+
         webView.frame.size.width = self.view.frame.size.width
         webView.frame.origin.x = 0
         webView.frame.origin.y = self.view.frame.size.height * 0.40
+        println("viewDidLayoutSubviews")
         //The webview frame is the other 60% of the screen, minus the space that the toolbar takes up
         webView.frame.size.height = self.view.frame.size.height * 0.60 - toolbar.frame.size.height
+        } else {
+            player.view.frame = CGRectMake(self.view.frame.size.width * 0.50, 0, self.view.frame.size.width * 0.50, self.view.frame.size.height * 0.20)
+            webView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        }
+        }
     }
 }
 
