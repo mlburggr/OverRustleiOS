@@ -91,6 +91,8 @@ class ViewController: UIViewController {
                 s = Hitbox()
             case "azubu":
                 s = Azubu()
+            case "mlg":
+                s = MLG()
             default:
                 println(platform, "is not supported right now")
         }
