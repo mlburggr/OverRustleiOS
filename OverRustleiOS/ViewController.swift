@@ -14,10 +14,12 @@ import SocketIO
 class ViewController: UIViewController, UIWebViewDelegate {
     
     @IBOutlet weak var toolbar: UIToolbar!
-   
     @IBOutlet weak var webView: UIWebView!
-    
     var player = MPMoviePlayerController()
+    @IBOutlet weak var backButton: UIButton!
+    var socket = SocketIOClient(socketURL: "http://api.overrustle.com", opts: ["nsp": "/streams"])
+    var api_data:NSDictionary = NSDictionary()
+    
     
     func webViewDidFinishLoad(webView: UIWebView) {
         if(webView.request?.URL != NSURL(string: "http://www.destiny.gg/embed/chat")){
@@ -29,18 +31,10 @@ class ViewController: UIViewController, UIWebViewDelegate {
         }
     }
     
-    @IBOutlet weak var backButton: UIButton!
-    
-    
-    
-    var socket = SocketIOClient(socketURL: "http://api.overrustle.com", opts: ["nsp": "/streams"])
-    
-    var api_data:NSDictionary = NSDictionary()
-    
-    
     @IBAction func backPressed(sender: AnyObject) {
         webView.goBack()
     }
+    
     @IBAction func strimsPressed(sender: AnyObject) {
         
         var title = "Select Strim"
@@ -84,10 +78,7 @@ class ViewController: UIViewController, UIWebViewDelegate {
                         let originalImage = image?.imageWithRenderingMode(.AlwaysOriginal)
                         action.setValue(originalImage, forKey: "image")
                     }
-                
                 }
-                
-              
                 rustleActionSheet.addAction(action)
             }
         }
@@ -123,16 +114,14 @@ class ViewController: UIViewController, UIWebViewDelegate {
     func closeSocket() {
         self.socket.disconnect(fast: false)
     }
+    
     func openSocket() {
         self.socket.connect()
     }
     
     func addHandlers() {
-        // Our socket handlers go here
-        
         self.socket.onAny {
             println("Got event: \($0.event)")
-//            println("with items: \($0.items)")
         }
         self.socket.on("strims") { data, ack in
             println("in strims")
@@ -154,23 +143,15 @@ class ViewController: UIViewController, UIWebViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        
+
         self.addHandlers()
         self.socket.connect()
         
-        
         backButton.hidden = true
 
-        
-        
         let chatURL = NSURL(string: "http://www.destiny.gg/embed/chat")
         let chatURLRequestObj = NSURLRequest(URL: chatURL!)
         webView.loadRequest(chatURLRequestObj)
-        
-        
-        
-        
         
         //The player takes up 40% of the screen
         //(this can (and probably should be) changed later
