@@ -18,6 +18,7 @@
 		CF8D75961B853C7F00559CBE /* SocketIO.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CF8D758E1B853C7100559CBE /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CF8D759F1B85751F00559CBE /* Hitbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D759D1B85751F00559CBE /* Hitbox.swift */; };
 		CF8D75A01B85751F00559CBE /* YouTubeLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D759E1B85751F00559CBE /* YouTubeLive.swift */; };
+		CF8D75AA1B86DE8000559CBE /* MLG.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D75A91B86DE8000559CBE /* MLG.swift */; };
 		CFBFF2981B803C1000A72627 /* RustleStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBFF2971B803C1000A72627 /* RustleStream.swift */; };
 		CFBFF29B1B803D3300A72627 /* UStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBFF29A1B803D3300A72627 /* UStream.swift */; };
 		CFBFF29D1B803D3C00A72627 /* Twitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBFF29C1B803D3C00A72627 /* Twitch.swift */; };
@@ -90,6 +91,7 @@
 		CF8D75861B853C7100559CBE /* Socket.IO-Client-Swift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Socket.IO-Client-Swift.xcodeproj"; path = "../../socket.io-client-swift/Socket.IO-Client-Swift.xcodeproj"; sourceTree = "<group>"; };
 		CF8D759D1B85751F00559CBE /* Hitbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hitbox.swift; sourceTree = "<group>"; };
 		CF8D759E1B85751F00559CBE /* YouTubeLive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubeLive.swift; sourceTree = "<group>"; };
+		CF8D75A91B86DE8000559CBE /* MLG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLG.swift; sourceTree = "<group>"; };
 		CFBFF2971B803C1000A72627 /* RustleStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RustleStream.swift; sourceTree = "<group>"; };
 		CFBFF29A1B803D3300A72627 /* UStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UStream.swift; sourceTree = "<group>"; };
 		CFBFF29C1B803D3C00A72627 /* Twitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Twitch.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				6226B07D1B85B8B200DA2984 /* Azubu.swift */,
 				CF019BC41B75C9AD00180B14 /* AppDelegate.swift */,
 				CF019BC61B75C9AD00180B14 /* ViewController.swift */,
+				CF8D75A91B86DE8000559CBE /* MLG.swift */,
 				CFBFF29A1B803D3300A72627 /* UStream.swift */,
 				CF8D759D1B85751F00559CBE /* Hitbox.swift */,
 				CF8D759E1B85751F00559CBE /* YouTubeLive.swift */,
@@ -328,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF8D75AA1B86DE8000559CBE /* MLG.swift in Sources */,
 				CF019BC71B75C9AD00180B14 /* ViewController.swift in Sources */,
 				CF8D75A01B85751F00559CBE /* YouTubeLive.swift in Sources */,
 				CFBFF29B1B803D3300A72627 /* UStream.swift in Sources */,

@@ -11,7 +11,7 @@ import AVFoundation
 import MediaPlayer
 import SocketIO
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIWebViewDelegate {
     
     @IBOutlet weak var toolbar: UIToolbar!
    
@@ -19,10 +19,28 @@ class ViewController: UIViewController {
     
     var player = MPMoviePlayerController()
     
+    func webViewDidFinishLoad(webView: UIWebView) {
+        if(webView.request?.URL != NSURL(string: "http://www.destiny.gg/embed/chat")){
+            println("showing button")
+            backButton.bringSubviewToFront(self.view)
+            backButton.hidden = false
+        } else {
+            backButton.hidden = true
+        }
+    }
+    
+    @IBOutlet weak var backButton: UIButton!
+    
+    
+    
     var socket = SocketIOClient(socketURL: "http://api.overrustle.com", opts: ["nsp": "/streams"])
     
     var api_data:NSDictionary = NSDictionary()
     
+    
+    @IBAction func backPressed(sender: AnyObject) {
+        webView.goBack()
+    }
     @IBAction func strimsPressed(sender: AnyObject) {
         
         var title = "Select Strim"
@@ -141,12 +159,17 @@ class ViewController: UIViewController {
         self.addHandlers()
         self.socket.connect()
         
+        
+        backButton.hidden = true
 
         
         
         let chatURL = NSURL(string: "http://www.destiny.gg/embed/chat")
         let chatURLRequestObj = NSURLRequest(URL: chatURL!)
         webView.loadRequest(chatURLRequestObj)
+        
+        
+        
         
         var myStream = UStream()
         myStream.channel = "20654296"

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -32,12 +33,26 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="693" id="8AP-jW-VbJ"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Qku-Zp-6fg"/>
+                                </connections>
                             </webView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hec-gy-SW9">
+                                <rect key="frame" x="529" y="463" width="55" height="30"/>
+                                <state key="normal" title="&lt; Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qqW-f3-bmu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Hec-gy-SW9" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="8hd-sA-WfK"/>
                             <constraint firstItem="lVs-YW-Gu9" firstAttribute="bottom" secondItem="sgz-Bm-VCP" secondAttribute="top" id="ISr-73-8gq"/>
                             <constraint firstItem="sgz-Bm-VCP" firstAttribute="trailing" secondItem="lVs-YW-Gu9" secondAttribute="trailing" id="Mt8-or-uD3"/>
+                            <constraint firstItem="sgz-Bm-VCP" firstAttribute="top" secondItem="Hec-gy-SW9" secondAttribute="bottom" constant="63" id="dpe-pd-RQs"/>
                             <constraint firstItem="sgz-Bm-VCP" firstAttribute="leading" secondItem="lVs-YW-Gu9" secondAttribute="leading" id="hPt-lP-Wxx"/>
                             <constraint firstAttribute="trailing" secondItem="sgz-Bm-VCP" secondAttribute="trailing" id="jRK-ZP-Ozh"/>
                             <constraint firstItem="sgz-Bm-VCP" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="nMb-h1-Hor"/>
@@ -45,6 +60,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="Hec-gy-SW9" id="Y8f-Oc-yXM"/>
                         <outlet property="toolbar" destination="sgz-Bm-VCP" id="q6Q-iy-NiZ"/>
                         <outlet property="webView" destination="lVs-YW-Gu9" id="sN4-HQ-oRC"/>
                     </connections>
