@@ -171,10 +171,6 @@ class ViewController: UIViewController, UIWebViewDelegate {
         
         
         
-        var myStream = UStream()
-        myStream.channel = "20654296"
-        var videoStreamURL = myStream.getStreamURL()
-        player = MPMoviePlayerController(contentURL: videoStreamURL)
         
         //The player takes up 40% of the screen
         //(this can (and probably should be) changed later
