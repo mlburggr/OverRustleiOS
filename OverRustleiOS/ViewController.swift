@@ -11,8 +11,11 @@ import AVFoundation
 import MediaPlayer
 import SocketIO
 
-class ViewController: UIViewController, UIWebViewDelegate {
-    
+class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDelegate {
+    func gestureRecognizer(UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWithGestureRecognizer:UIGestureRecognizer) -> Bool {
+            return true
+    }
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var webView: UIWebView!
     var player = MPMoviePlayerController()
@@ -139,7 +142,13 @@ class ViewController: UIViewController, UIWebViewDelegate {
         }
     }
     
-    
+    func handleTap(sender: UITapGestureRecognizer) {
+        println("tapped video")
+        if sender.state == .Ended {
+            // handling code
+            fullscreenButtonClick()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,6 +161,17 @@ class ViewController: UIViewController, UIWebViewDelegate {
         let chatURL = NSURL(string: "http://www.destiny.gg/embed/chat")
         let chatURLRequestObj = NSURLRequest(URL: chatURL!)
         webView.loadRequest(chatURLRequestObj)
+        
+        var testStream = Twitch()
+        testStream.channel = "vgbootcamp"
+        let videoStreamURL = testStream.getStreamURL()
+        player = MPMoviePlayerController(contentURL: videoStreamURL)
+        player.controlStyle = MPMovieControlStyle.None
+        
+        let anyTap = UITapGestureRecognizer(target: self, action:Selector("handleTap:"))
+        anyTap.delegate = self
+        player.view.addGestureRecognizer(anyTap)
+        
         
         //The player takes up 40% of the screen
         //(this can (and probably should be) changed later
@@ -170,18 +190,18 @@ class ViewController: UIViewController, UIWebViewDelegate {
     func fullscreenButtonClick(){
         println("fullscreen button clicked")
         if(isFullWidthPlayer){
-        //make the player a mini player
-        self.player.setFullscreen(false, animated: true)
-        self.player.controlStyle = MPMovieControlStyle.Embedded
-        player.view.frame = CGRectMake(self.view.frame.size.width * 0.50, 0, self.view.frame.size.width * 0.50, self.view.frame.size.height * 0.20)
-        isFullWidthPlayer = false
+            //make the player a mini player
+            //self.player.setFullscreen(false, animated: true)
+            //self.player.controlStyle = MPMovieControlStyle.Fullscreen
+            player.view.frame = CGRectMake(self.view.frame.size.width * 0.50, 0, self.view.frame.size.width * 0.50, self.view.frame.size.height * 0.20)
+            isFullWidthPlayer = false
         
         
         } else {
             //make the mini player a full width player again
-            self.player.setFullscreen(false, animated: true)
+            //self.player.setFullscreen(false, animated: true)
             player.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height * 0.40)
-            self.player.controlStyle = MPMovieControlStyle.Embedded
+            //self.player.controlStyle = MPMovieControlStyle.Fullscreen
             isFullWidthPlayer = true
         }
 
