@@ -29,6 +29,9 @@ public class Twitch: RustleStream {
         println("\(sig)")
         var qualitiesString = "http://usher.justin.tv/api/channel/hls/\(channel).m3u8?token=\(token)&sig=\(sig)&allow_source=true"
         var qualitiesURL = NSURL(string:qualitiesString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+        return qualitiesURL!
+        // this code will throw exceptions for offline streams:
+        
         var error : NSError?
         var qualitiesNSString = NSString(contentsOfURL: qualitiesURL!, encoding: NSUTF8StringEncoding, error: &error)
         var list = qualitiesNSString!.componentsSeparatedByString("\n")
