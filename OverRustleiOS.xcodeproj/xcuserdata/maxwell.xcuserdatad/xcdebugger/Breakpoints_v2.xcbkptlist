@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OverRustleiOS/ViewController.swift"
-            timestampString = "464218018.438486"
+            timestampString = "464221730.667279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "fullscreenButtonClick()"
             landmarkType = "5">
          </BreakpointContent>

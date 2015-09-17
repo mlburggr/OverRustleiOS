@@ -19,6 +19,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var webView: UIWebView!
     var player = MPMoviePlayerController()
+    var customStreamTextField: UITextField!
     var currentStream : String = ""
     @IBOutlet weak var backButton: UIButton!
     var socket = SocketIOClient(socketURL: "http://api.overrustle.com", opts: ["nsp": "/streams"])
@@ -65,7 +66,32 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
         let action = UIAlertAction(title:button_customStream_title, style:UIAlertActionStyle.Default, handler:{ action in
             println("Enter custom strim button loaded")
             
-            //TODO: popup to enter strim title and name
+            var alert = UIAlertController(title: "Enter custom stream", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            //alert.addAction(UIAlertAction(title: "Enter", style: UIAlertActionStyle.Default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "UStream", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+                self.openStream("ustream", channel: self.customStreamTextField.text)
+            }))
+            alert.addAction(UIAlertAction(title: "Twitch", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+                self.openStream("twitch", channel: self.customStreamTextField.text)
+            }))
+            alert.addAction(UIAlertAction(title: "YouTube", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+                self.openStream("youtube", channel: self.customStreamTextField.text)
+            }))
+            alert.addAction(UIAlertAction(title: "Hitbox", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+                self.openStream("hitbox", channel: self.customStreamTextField.text)
+            }))
+            alert.addAction(UIAlertAction(title: "Azubu", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+                self.openStream("azubu", channel: self.customStreamTextField.text)
+            }))
+            alert.addAction(UIAlertAction(title: "MLG", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+                self.openStream("mlg", channel: self.customStreamTextField.text)
+            }))
+            alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+                self.customStreamTextField = textField;
+                textField.placeholder = "Enter stream title"
+            })
+            self.presentViewController(alert, animated: true, completion: nil)
             })
         rustleActionSheet.addAction(action)
         var i : Int
