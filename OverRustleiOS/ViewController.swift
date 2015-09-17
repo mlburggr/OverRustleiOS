@@ -60,9 +60,14 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
         rustleActionSheet.popoverPresentationController?.sourceView = self.view
         rustleActionSheet.popoverPresentationController?.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
         
-        
+        var button_customStream_title = "Enter custom stream..."
+        let action = UIAlertAction(title:button_customStream_title, style:UIAlertActionStyle.Default, handler:{ action in
+            println("Enter custom strim button loaded")
+            
+            //TODO: popup to enter strim title and name
+            })
+        rustleActionSheet.addAction(action)
         var i : Int
-        
         for i = 0; i<list.count; i++ {
             let stream = list[i] as! NSDictionary
             if let channel = stream["channel"] as? String, let platform = stream["platform"] as? String, let imageURLString = stream["image_url"] as? String {
@@ -232,7 +237,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
         webView.frame.size.height = self.view.frame.size.height * 0.60 - toolbar.frame.size.height
         } else {
             player.view.frame = CGRectMake(self.view.frame.size.width * 0.50, 0, self.view.frame.size.width * 0.50, self.view.frame.size.height * 0.20)
-            webView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            webView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - self.toolbar.frame.size.height)
         }
         }
     }
