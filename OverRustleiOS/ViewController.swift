@@ -19,6 +19,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var webView: UIWebView!
     var player = MPMoviePlayerController()
+    var currentStream : String = ""
     @IBOutlet weak var backButton: UIButton!
     var socket = SocketIOClient(socketURL: "http://api.overrustle.com", opts: ["nsp": "/streams"])
     var api_data:NSDictionary = NSDictionary()
@@ -96,6 +97,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
     }
     
     func openStream(platform:String, channel:String) {
+        currentStream = channel
         var s = RustleStream()
         switch platform {
             case "ustream":
@@ -220,12 +222,19 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
     override func viewDidLayoutSubviews() {
         var deviceOrientation = UIDevice.currentDevice().orientation
         if(UIDeviceOrientationIsLandscape(deviceOrientation)){
+            if(currentStream == ""){
+                self.player.view.frame = CGRectMake(0, 0, 0, 0);
+            } else {
             if(isFullWidthPlayer){
                 self.player.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
             } else {
                 self.player.view.frame = CGRectMake( 2 * self.view.frame.size.width / 3, 0, self.view.frame.size.width / 3, self.view.frame.size.width / 3 * 0.5625)
             }
+            }
         } else {
+            if(currentStream == ""){
+                self.player.view.frame = CGRectMake(0, 0, 0, 0);
+            } else {
         if(isFullWidthPlayer){
         self.player.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height * 0.40)
 
@@ -239,6 +248,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
             player.view.frame = CGRectMake(self.view.frame.size.width * 0.50, 0, self.view.frame.size.width * 0.50, self.view.frame.size.height * 0.20)
             webView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - self.toolbar.frame.size.height)
         }
+            }
         }
     }
 }
