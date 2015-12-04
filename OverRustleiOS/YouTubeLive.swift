@@ -15,12 +15,18 @@ public class YouTubeLive: RustleStream {
     override func getStreamURL() -> NSURL {
         let status_url_string = String(format: STATUS_ENDPOINT, channel)
         
-        var qualitiesURL = NSURL(string:status_url_string.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+        let qualitiesURL = NSURL(string:status_url_string.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
         
         var error : NSError?
-        var qualitiesNSString = NSString(contentsOfURL: qualitiesURL!, encoding: NSUTF8StringEncoding, error: &error)
+        var qualitiesNSString: NSString?
+        do {
+            qualitiesNSString = try NSString(contentsOfURL: qualitiesURL!, encoding: NSUTF8StringEncoding)
+        } catch let error1 as NSError {
+            error = error1
+            qualitiesNSString = nil
+        }
         
-        var list = qualitiesNSString!.componentsSeparatedByString("&")
+        let list = qualitiesNSString!.componentsSeparatedByString("&")
         
         var url = NSURL()
         
@@ -28,7 +34,7 @@ public class YouTubeLive: RustleStream {
             if !line.hasPrefix("hlsvp") {
                 continue
             }
-            let encoded_url_string = line.componentsSeparatedByString("=")[1] as! String
+            let encoded_url_string = line.componentsSeparatedByString("=")[1] 
             let decoded_url_string = encoded_url_string.stringByReplacingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
             url = NSURL(string: decoded_url_string)!
             break

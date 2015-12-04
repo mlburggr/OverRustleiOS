@@ -14,7 +14,7 @@ public class Hitbox: RustleStream {
     override func getStreamURL() -> NSURL {
         // NOTE: this endpoint won't work if the stream is offline or does not exist
         
-        var url = NSURL(string:"http://api.hitbox.tv/player/hls/\(channel).m3u8")
+        let url = NSURL(string:"http://api.hitbox.tv/player/hls/\(channel).m3u8")
         return url!
     }
     

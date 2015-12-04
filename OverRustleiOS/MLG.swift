@@ -22,7 +22,7 @@ public class MLG: RustleStream {
         // 1a: get the html containing the data
         var error: NSError?
         var url = NSURL(string: "\(PLAYER_EMBED_URL)\(channel)")!
-        var res = NSString(contentsOfURL: url, encoding: NSUTF8StringEncoding, error: &error)! as String
+        var res = (try! NSString(contentsOfURL: url, encoding: NSUTF8StringEncoding)) as String
 
         // 1b: pull the id from the json on the page
         let stream_id = findStreamId(res)
@@ -34,9 +34,9 @@ public class MLG: RustleStream {
         // step 2: get the streams list
         url = NSURL(string:String(format: STREAM_API_URL, stream_id!))!
         
-        let stream_api_data = NSData(contentsOfURL: url, options: nil, error: &error)!
+        let stream_api_data = try! NSData(contentsOfURL: url, options: [])
         let streams = JSON(data: stream_api_data)["data"]["items"]
-        for (index: String, subJson: JSON) in streams {
+        for (index, subJson): (String, JSON) in streams {
             
             if let source_url = subJson["url"].string {
                 // find the first HLS playlist
@@ -55,8 +55,8 @@ public class MLG: RustleStream {
             return nil
         }
         
-        var json_string = matches[0].substringWithRange(Range<String.Index>(start: advance(matches[0].startIndex, 19), end: advance(matches[0].endIndex, -1)))
-        println("json string \(json_string)")
+        let json_string = matches[0].substringWithRange(Range<String.Index>(start: matches[0].startIndex.advancedBy(19), end: matches[0].endIndex.advancedBy(-1)))
+        print("json string \(json_string)")
         
         if let dataFromString = json_string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
             let json = JSON(data: dataFromString)

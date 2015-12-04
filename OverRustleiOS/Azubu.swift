@@ -17,7 +17,7 @@ public class Azubu: RustleStream {
     func getStatus() -> JSON {
         let url = NSURL(string:String(format: STATUS_ENDPOINT, channel))!
         var error:NSError?
-        let retval = NSData(contentsOfURL: url, options: nil, error: &error)!
+        let retval = try! NSData(contentsOfURL: url, options: [])
         
         let json = JSON(data: retval);
 
@@ -70,15 +70,15 @@ public class Azubu: RustleStream {
         
         var request = NSMutableURLRequest(URL: streamApiUrl)
         // set the special header
-        request.addValue(policy_key, forHTTPHeaderField: "BCOV-Policy")
+        request.addValue(policy_key!, forHTTPHeaderField: "BCOV-Policy")
         var response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
-        var dataVal: NSData =  NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error:nil)!
+        var dataVal: NSData =  try! NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
         var err: NSError
-        println(response)
+        print(response)
         
         var json = JSON(data: dataVal)["sources"]
         
-        for (index: String, subJson: JSON) in json {
+        for (index, subJson): (String, JSON) in json {
             
             if let source_url = subJson["src"].string {
                 // find the first HLS playlist
@@ -93,7 +93,7 @@ public class Azubu: RustleStream {
     func step1() -> NSURL? {
         var error:NSError?
         
-        let html = NSString(contentsOfURL: NSURL(string:"http://www.azubu.tv/\(channel)")!, encoding: NSUTF8StringEncoding, error: &error)! as String
+        let html = (try! NSString(contentsOfURL: NSURL(string:"http://www.azubu.tv/\(channel)")!, encoding: NSUTF8StringEncoding)) as String
         
         let matches = matchesForRegexInText("config\\/config\\..+?\\.js", text: html)
         
@@ -109,7 +109,7 @@ public class Azubu: RustleStream {
     func step2(url:NSURL) -> NSURL? {
         var error:NSError?
         
-        let html = NSString(contentsOfURL: url, encoding: NSUTF8StringEncoding, error: &error)! as String
+        let html = (try! NSString(contentsOfURL: url, encoding: NSUTF8StringEncoding)) as String
         
         let matches = matchesForRegexInText("(\\S{8}?-\\S{4}?-\\S{4}?-\\S{4}?-\\S{12})", text: html)
         
@@ -125,7 +125,7 @@ public class Azubu: RustleStream {
     func step3(url:NSURL) -> String? {
         var error:NSError?
         
-        let html = NSString(contentsOfURL: url, encoding: NSUTF8StringEncoding, error: &error)! as String
+        let html = (try! NSString(contentsOfURL: url, encoding: NSUTF8StringEncoding)) as String
         
         let matches = matchesForRegexInText("'policyKey':\\s\"(\\S+?)\"", text: html)
         
@@ -135,7 +135,7 @@ public class Azubu: RustleStream {
         
         let policy_key = matches[0]
         
-        return policy_key.substringWithRange(Range<String.Index>(start: advance(policy_key.startIndex, 14), end: advance(policy_key.endIndex, -1)))
+        return policy_key.substringWithRange(Range<String.Index>(start: policy_key.startIndex.advancedBy(14), end: policy_key.endIndex.advancedBy(-1)))
         //"llo, playgroun"
         
     }

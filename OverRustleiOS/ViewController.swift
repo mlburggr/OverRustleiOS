@@ -12,7 +12,7 @@ import MediaPlayer
 import SocketIO
 
 class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDelegate {
-    func gestureRecognizer(UIGestureRecognizer,
+    func gestureRecognizer(_: UIGestureRecognizer,
         shouldRecognizeSimultaneouslyWithGestureRecognizer:UIGestureRecognizer) -> Bool {
             return true
     }
@@ -22,13 +22,13 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
     var customStreamTextField: UITextField!
     var currentStream : String = ""
     @IBOutlet weak var backButton: UIButton!
-    var socket = SocketIOClient(socketURL: "http://api.overrustle.com", opts: ["nsp": "/streams"])
+    var socket = SocketIOClient(socketURL: "http://api.overrustle.com", options: ["nsp": "/streams"])
     var api_data:NSDictionary = NSDictionary()
     var isFullWidthPlayer: Bool = true
     
     func webViewDidFinishLoad(webView: UIWebView) {
         if(webView.request?.URL != NSURL(string: "http://www.destiny.gg/embed/chat")){
-            println("showing button")
+            print("showing button", terminator: "")
             backButton.bringSubviewToFront(self.view)
             backButton.hidden = false
         } else {
@@ -50,7 +50,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
         var title = "Select Strim"
         
         if let viewers = api_data["viewercount"] as? Int {
-            println("Rustlers:", viewers)
+            print("Rustlers:", viewers, terminator: "")
             title = "\(viewers) Rustlers Watching"
         }
         
@@ -58,7 +58,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
         
         if let stream_list = api_data["stream_list"] as? NSArray {
             list = stream_list
-            println("Stream List", stream_list)
+            print("Stream List", stream_list, terminator: "")
         }
         
         
@@ -109,7 +109,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
                 }
                 
                 let action = UIAlertAction(title:button_title, style:UIAlertActionStyle.Default, handler:{ action in
-                    println("loading", channel, "from", platform)
+                    print("loading", channel, "from", platform)
                     self.openStream(platform, channel: channel)
                 })
                 if let imageURL = NSURL(string: imageURLString) {
@@ -144,7 +144,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
             case "mlg":
                 s = MLG()
             default:
-                println(platform, "is not supported right now")
+                print(platform, "is not supported right now")
         }
         s.channel = channel
         player.contentURL = s.getStreamURL()
@@ -153,7 +153,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
     }
     
     func closeSocket() {
-        self.socket.disconnect(fast: false)
+        self.socket.disconnect()
     }
     
     func openSocket() {
@@ -162,18 +162,18 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
     
     func addHandlers() {
         self.socket.onAny {
-            println("Got event: \($0.event)")
+            print("Got event: \($0.event)")
         }
         self.socket.on("strims") { data, ack in
-            println("in strims")
+            print("in strims")
             
-            if let new_api_data = data?[0] as? NSDictionary {
+            if let new_api_data = data[0] as? NSDictionary {
                 self.api_data = new_api_data
                 if let viewers = self.api_data["viewercount"] as? Int {
-                    println("Rustlers:", viewers)
+                    print("Rustlers:", viewers)
                 }
                 if let stream_list = self.api_data["stream_list"] as? NSArray {
-                    println("Good Stream List")
+                    print("Good Stream List")
                 }
                 
             }
@@ -181,7 +181,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
     }
     
     func handleTap(sender: UITapGestureRecognizer) {
-        println("tapped video")
+        print("tapped video")
         if sender.state == .Ended {
             // handling code
             fullscreenButtonClick()
@@ -226,7 +226,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
     }
     
     func fullscreenButtonClick(){
-        println("fullscreen button clicked")
+        print("fullscreen button clicked")
         if(isFullWidthPlayer){
             //make the player a mini player
             //self.player.setFullscreen(false, animated: true)
@@ -251,7 +251,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
     }
     
     override func viewDidLayoutSubviews() {
-        var deviceOrientation = UIDevice.currentDevice().orientation
+        let deviceOrientation = UIDevice.currentDevice().orientation
         if(UIDeviceOrientationIsLandscape(deviceOrientation)){
             if(currentStream == ""){
                 self.player.view.frame = CGRectMake(0, 0, 0, 0);
@@ -272,7 +272,7 @@ class ViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDe
         webView.frame.size.width = self.view.frame.size.width
         webView.frame.origin.x = 0
         webView.frame.origin.y = self.view.frame.size.height * 0.40
-        println("viewDidLayoutSubviews")
+        print("viewDidLayoutSubviews")
         //The webview frame is the other 60% of the screen, minus the space that the toolbar takes up
         webView.frame.size.height = self.view.frame.size.height * 0.60 - toolbar.frame.size.height
         } else {

@@ -12,7 +12,7 @@ public class UStream: RustleStream {
     
     
     override func getStreamURL() -> NSURL {
-        var url = NSURL(string:"http://iphone-streaming.ustream.tv/ustreamVideo/\(channel)/streams/live/iphone/playlist.m3u8")
+        let url = NSURL(string:"http://iphone-streaming.ustream.tv/ustreamVideo/\(channel)/streams/live/iphone/playlist.m3u8")
         return url!
     }
     

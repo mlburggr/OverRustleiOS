@@ -18,14 +18,14 @@ public class RustleStream {
     func matchesForRegexInText(regex: String!, text: String!) -> [String] {
         let regex_options:NSRegularExpressionOptions? = NSRegularExpressionOptions.CaseInsensitive
         
-        let regex = NSRegularExpression(pattern: regex,
-            options: regex_options!, error: nil)!
+        let regex = try! NSRegularExpression(pattern: regex,
+            options: regex_options!)
         
         let nsString = text as NSString
         let results = regex.matchesInString(text,
-            options: nil, range: NSMakeRange(0, nsString.length))
-            as! [NSTextCheckingResult]
-        return map(results) { nsString.substringWithRange($0.range)}
+            options: [], range: NSMakeRange(0, nsString.length))
+            
+        return results.map { nsString.substringWithRange($0.range)}
     }
     
     func getStreamURL() -> NSURL{
